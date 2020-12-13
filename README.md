@@ -4,7 +4,7 @@ Development of this guide was done on Fedora Linux x86_64, however any distribut
 work.
 
 Please make sure you Raspberry Pi 4 has the latest bootloader installed.
-Follow the recovery instructions at
+Follow the instructions at
 [Raspberry Pi 4 boot EEPROM](https://www.raspberrypi.org/documentation/hardware/raspberrypi/booteeprom.md).
 
 ---
