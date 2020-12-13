@@ -5,7 +5,7 @@ work.
 
 Please make sure you Raspberry Pi 4 has the latest bootloader installed.
 Follow the recovery instructions at
-[Raspberry Pi Downloads](https://www.raspberrypi.org/downloads/).
+[Raspberry Pi 4 boot EEPROM](https://www.raspberrypi.org/documentation/hardware/raspberrypi/booteeprom.md).
 
 ---
 
