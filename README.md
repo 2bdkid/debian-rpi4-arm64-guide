@@ -190,7 +190,7 @@ Please submit an Issue if you found errors in the guide or want me to add someth
 
 ## Post-Install
 
-# Updating the kernel
+### Updating the kernel
 
 Steps to update the kernel are similar to the initial kernel build steps.
 
