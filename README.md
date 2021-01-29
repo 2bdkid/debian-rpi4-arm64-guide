@@ -17,6 +17,7 @@ Follow the instructions at
 5. [Install firmware](https://github.com/2bdkid/debian-rpi4-arm64-guide#install-firmware)
 6. [Edit some configuration files](https://github.com/2bdkid/debian-rpi4-arm64-guide#edit-some-configuration-files)
 7. [Finalization](https://github.com/2bdkid/debian-rpi4-arm64-guide#finalization)
+8. [Post-Install](https://github.com/2bdkid/debian-rpi4-arm64-guide#post-install)
 ---
 
 ## Installing prerequisites
@@ -186,3 +187,23 @@ sudo umount /mnt
 Congratulations. Your raspberry pi should now be running a fully functional 64bit OS, as it should.
 
 Please submit an Issue if you found errors in the guide or want me to add something. Brady Dean
+
+## Post-Install
+
+# Updating the kernel
+
+Steps to update the kernel are similar to the initial kernel build steps.
+
+```
+sudo apt-get install build-essential flex bison bc
+git clone --depth=1 -b rpi-5.6.y https://github.com/raspberrypi/linux
+mkdir linux-build
+cd linux
+make O=../linux-build ARCH=arm64 bcm2711_defconfig
+make O=../linux-build ARCH=arm64 modules Image dtbs
+sudo make O=../linux-build ARCH=arm64 INSTALL_MOD_PATH=/ modules_install
+sudo make O=../linux-build ARCH=arm64 INSTALL_DTBS_PATH=/boot dtbs_install
+sudo mv /boot/broadcom/* /boot # rpi documentation says .dtb files should alongside start4.elf, i.e. in /boot
+sudo rmdir /boot/broadcom
+sudo cp ../linux-build/arch/arm64/boot/Image /boot/kernel8.img
+```
