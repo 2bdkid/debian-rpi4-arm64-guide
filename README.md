@@ -184,11 +184,36 @@ sudo umount /mnt/boot
 sudo umount /mnt
 ```
 
-Congratulations. Your raspberry pi should now be running a fully functional 64bit OS, as it should.
-
-Please submit an Issue if you found errors in the guide or want me to add something. Brady Dean
-
 ## Post-Install
+
+### Adding an initial ramdisk
+
+This process is made easy by dracut.
+
+```
+sudo apt-get install dracut
+```
+
+Dracut should pick up the correct `root` and `rootfstype` arguments. More options are available with `man dracut.conf`.
+
+```
+sudo tee /etc/dracut.conf.d/rpi-initrd.conf > /dev/null << EOF
+kernel_cmdline="rootwait"
+EOF
+```
+
+Since the name of the initrd is hard-coded in `config.txt`, a copy of the most recent initrd can be kept as `initrd.img`.
+
+```
+sudo dracut  # creates /boot/initrd.img-<version>
+sudo dracut /boot/initrd.img
+```
+
+Modify `config.txt` to tell the rpi to load the initrd. This can be changed from another host if something goes wrong.
+
+```
+echo "initramfs initrd.img followkernel" | sudo tee -a /boot/config.txt
+```
 
 ### Updating the kernel
 
@@ -207,3 +232,15 @@ sudo mv /boot/broadcom/* /boot # rpi documentation says .dtb files should alongs
 sudo rmdir /boot/broadcom
 sudo cp ../linux-build/arch/arm64/boot/Image /boot/kernel8.img
 ```
+
+Update the initrd if being used:
+
+```
+sudo dracut
+sudo dracut /boot/initrd.img
+sudo rm /boot/initrd.img-<old version>  # consider keeping a couple of these around just in case
+```
+
+Congratulations. Your raspberry pi should now be running a fully functional 64bit OS, as it should.
+
+Please submit an Issue if you found errors in the guide or want me to add something. Brady Dean
