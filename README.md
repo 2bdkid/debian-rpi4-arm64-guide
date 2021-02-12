@@ -167,6 +167,37 @@ systemctl enable systemd-networkd
 systemctl set-default multi-user
 ```
 
+If you need an initial ramdisk, one can be configured now. Enter the chroot with `/dev`, `/sys`, and `/proc` mounted.
+
+```
+sudo mount -t proc /proc /mnt/proc/
+sudo mount --rbind /sys /mnt/sys/
+sudo mount --rbind /dev /mnt/dev/
+sudo chroot /mnt /bin/bash
+apt-get install dracut
+```
+
+Add dracut configuration.
+
+```
+tee /etc/dracut.conf.d/rpi-initrd.conf > /dev/null << EOF
+kernel_cmdline="root=/dev/mmcblk0p2 rootwait"
+EOF
+```
+
+Generate the initrd with the installed kernel. Use `ls /lib/modules` to find the kernel version.
+
+```
+dracut --kver <version>
+dracut --kver <version> /boot/initrd.img
+```
+
+Point the rpi's firmware to the initrd.
+
+```
+echo "initramfs initrd.img followkernel" | tee -a /boot/config.txt
+```
+
 Consider adding a user account with `adduser` and finally,
 
 ```
@@ -185,35 +216,6 @@ sudo umount /mnt
 ```
 
 ## Post-Install
-
-### Adding an initial ramdisk
-
-This process is made easy by dracut.
-
-```
-sudo apt-get install dracut
-```
-
-Dracut should pick up the correct `root` and `rootfstype` arguments. More options are available with `man dracut.conf`.
-
-```
-sudo tee /etc/dracut.conf.d/rpi-initrd.conf > /dev/null << EOF
-kernel_cmdline="rootwait"
-EOF
-```
-
-Since the name of the initrd is hard-coded in `config.txt`, a copy of the most recent initrd can be kept as `initrd.img`.
-
-```
-sudo dracut  # creates /boot/initrd.img-<version>
-sudo dracut /boot/initrd.img
-```
-
-Modify `config.txt` to tell the rpi to load the initrd. This can be changed from another host if something goes wrong.
-
-```
-echo "initramfs initrd.img followkernel" | sudo tee -a /boot/config.txt
-```
 
 ### Updating the kernel
 
@@ -239,6 +241,16 @@ Update the initrd if being used:
 sudo dracut
 sudo dracut /boot/initrd.img
 sudo rm /boot/initrd.img-<old version>  # consider keeping a couple of these around just in case
+```
+
+### Updating the initrd
+
+After a kernel upgrade the initrd can also be updated if being used. Consider keeping a couple older initrd's around just in case something goes wrong.
+
+```
+sudo dracut --kver <new version>
+sudo dracut --kver <new version> /boot/initrd.img
+sudo rm /boot/initrd.img-<old version>
 ```
 
 Congratulations. Your raspberry pi should now be running a fully functional 64bit OS, as it should.
