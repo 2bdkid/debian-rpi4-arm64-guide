@@ -235,14 +235,6 @@ sudo rmdir /boot/broadcom
 sudo cp ../linux-build/arch/arm64/boot/Image /boot/kernel8.img
 ```
 
-Update the initrd if being used:
-
-```
-sudo dracut
-sudo dracut /boot/initrd.img
-sudo rm /boot/initrd.img-<old version>  # consider keeping a couple of these around just in case
-```
-
 ### Updating the initrd
 
 After a kernel upgrade the initrd can also be updated if being used. Consider keeping a couple older initrd's around just in case something goes wrong.
