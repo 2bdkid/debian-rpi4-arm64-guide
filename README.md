@@ -160,7 +160,7 @@ At this point, the system is configured and should boot without errors, but ther
 configuration steps we could take from inside a chroot.
 
 ```
-sudo chroot /mnt /bin/bash
+sudo chroot /mnt /bin/bash -l
 passwd # set root password
 dpkg-reconfigure locales # select your locale
 systemctl enable systemd-networkd
