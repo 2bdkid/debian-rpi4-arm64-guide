@@ -173,7 +173,7 @@ If you need an initial ramdisk, one can be configured now. Enter the chroot with
 sudo mount -t proc /proc /mnt/proc/
 sudo mount --rbind /sys /mnt/sys/
 sudo mount --rbind /dev /mnt/dev/
-sudo chroot /mnt /bin/bash
+sudo chroot /mnt /bin/bash -l
 apt-get install dracut
 ```
 
