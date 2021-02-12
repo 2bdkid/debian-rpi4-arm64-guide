@@ -177,7 +177,7 @@ sudo chroot /mnt /bin/bash -l
 apt-get install dracut
 ```
 
-Add dracut configuration.
+Add dracut configuration. Some of dracut's modules will activate automatically if certain programs are found, eg `btrfs`.
 
 ```
 tee /etc/dracut.conf.d/rpi-initrd.conf > /dev/null << EOF
