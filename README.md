@@ -5,7 +5,7 @@ work.
 
 Please make sure you Raspberry Pi 4 has the latest bootloader installed.
 Follow the instructions at
-[Raspberry Pi 4 boot EEPROM](https://www.raspberrypi.org/documentation/hardware/raspberrypi/booteeprom.md).
+[Updating the Bootloader](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#updating-the-bootloader).
 
 ---
 
@@ -101,7 +101,7 @@ sudo cp ../linux-build/arch/arm64/boot/Image /mnt/boot/kernel8.img
 There is some proprietary firmware that we cannot build from source so we will yank it from here.
 The additional `.elf` and `.dat` files can be used if you know what you are doing, but they are unnecessary to get the 
 system booting. Read 
-[The boot folder](https://www.raspberrypi.org/documentation/configuration/boot_folder.md) for more information.
+[Boot Folder Contents](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#updating-the-bootloader) for more information.
 
 ```
 git clone --depth=1 https://github.com/raspberrypi/firmware
@@ -134,7 +134,7 @@ EOF
 
 This setting tells the RPI to load `kernel8.img` as a 64bit kernel.
 More information about this file can be found at 
-[config.txt](https://www.raspberrypi.org/documentation/configuration/config-txt/README.md).
+[The config.txt file](https://www.raspberrypi.com/documentation/computers/config_txt.html).
 
 ```
 sudo tee /mnt/boot/config.txt > /dev/null << EOF
