@@ -91,7 +91,7 @@ make O=../linux-build ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- bcm2711_defcon
 make O=../linux-build ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules Image dtbs
 sudo make O=../linux-build ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- INSTALL_MOD_PATH=/mnt modules_install
 sudo make O=../linux-build ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- INSTALL_DTBS_PATH=/mnt/boot dtbs_install
-sudo mv /mnt/boot/broadcom/* /mnt/boot # rpi documentation says .dtb files should alongside start4.elf, i.e. in /boot
+sudo mv /mnt/boot/broadcom/* /mnt/boot # rpi documentation says .dtb files should be alongside start4.elf, i.e. in /boot
 sudo rmdir /mnt/boot/broadcom
 sudo cp ../linux-build/arch/arm64/boot/Image /mnt/boot/kernel8.img
 ```
