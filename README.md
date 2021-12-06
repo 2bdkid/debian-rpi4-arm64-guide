@@ -3,7 +3,7 @@ This is a guide for building an arm64 Debian distribution for the Raspberry Pi m
 Development of this guide was done on Fedora Linux x86_64, however any distribution will
 work.
 
-Please make sure you Raspberry Pi 4 has the latest bootloader installed.
+Please make sure your Raspberry Pi 4 has the latest bootloader installed.
 Follow the instructions at
 [Updating the Bootloader](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#updating-the-bootloader).
 
